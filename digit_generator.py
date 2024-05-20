@@ -39,7 +39,27 @@ def generator_model():
     assert model.output_shape == (None, 28, 28, 1)
     return model
 
+def discriminator_model():
+    model = Sequential()
+    model.add(Conv2D(64, (5, 5), strides=(2, 2), padding='same', input_shape=[28, 28, 1]))
+    model.add(LeakyReLU())
+    model.add(Dropout(0.3))
+    
+    model.add(Conv2D(128, (5, 5), strides=(2, 2), padding='same'))
+    model.add(LeakyReLU())
+    model.add(Dropout(0.3))
+    
+    model.add(Flatten())
+    model.add(Dense(1, activation='sigmoid'))
+    
+    return model
+
 if __name__ == '__main__':
     generator_model = generator_model()
-    generator_model.summary()
+    
+    discriminator_model = discriminator_model()
+    discriminator_model.summary()
+    
+    
+
 
